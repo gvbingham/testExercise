@@ -4,7 +4,6 @@
   "description": "For demonstrating my abilities :D",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
     "start": "./node_modules/mocha/bin/mocha"
   },
   "repository": {
