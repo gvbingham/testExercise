@@ -2,7 +2,6 @@ secrets.json
 secrets.js
 secret.json
 secret.js
-docker-bench-security/
 # Logs
 logs
 *.log

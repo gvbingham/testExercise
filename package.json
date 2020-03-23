@@ -4,7 +4,7 @@
   "description": "For demonstrating my abilities :D",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/mocha/bin/mocha test/*.ts"
+    "start": "./node_modules/mocha/bin/mocha test/"
   },
   "repository": {
     "type": "git",
