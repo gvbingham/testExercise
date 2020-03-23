@@ -1,4 +1,4 @@
 module.exports = {
-  baseUrl: 'http://petstore.swagger.io/',
+  baseUrl: 'https://petstore.swagger.io/',
   apiVersion: 'v2',
 };

@@ -22,7 +22,11 @@ docker-compose up
 
 clone down the repo. cd into the directory.
 `npm install`
-`npm start` || `./node_modules/mocha/bin/mocha test/` || `install mocha globally and just type `mocha` in the project directory.
+`npm start`
+OR
+`./node_modules/mocha/bin/mocha test/`
+OR
+install mocha globally and just type `mocha` in the project directory.
 
 ## Note ##
 
