@@ -1,38 +1,84 @@
-export {};
 const chakram = require('chakram');
 const expect = chakram.expect;
+const faker = require('faker');
+const config: Config = require('../config.json');
+const secrets: Secrets = require('../secrets.json');
+const testUrl = `${config.baseUrl}${config.apiVersion}/user`;
 
 describe('TestPetStore', function() {
   describe('User', function() {
-    it('Should create an Account', async function() {
-      const response = chakram.post('http://petstore.swagger.io/v2/user',
-          {
-            'id': 0,
-            'username': 'string',
-            'firstName': 'string',
-            'lastName': 'string',
-            'email': 'string',
-            'password': 'string',
-            'phone': 'string',
-            'userStatus': 0,
+    it('Should create an Account given default values', async function() {
+      // Arrange
+      const user = {
+        'id': 0,
+        'username': 'string',
+        'firstName': 'string',
+        'lastName': 'string',
+        'email': 'string',
+        'password': 'string',
+        'phone': 'string',
+        'userStatus': 0,
+      };
+      const responseSchema = {
+        type: 'object',
+        properties: {
+          body: {
+            type: 'object',
+            properties: {
+              code: {type: 'number'},
+              message: {type: 'string'},
+              type: {type: 'string'},
+            },
           },
-          /* {
-            headers : {
-              accept: "application/json",
-              Content-Type: "application/json",
-              Sec-Fetch-Dest: "empty",
-              User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
-              DNT: 1,
-              Content-Type: "application/json",
-              Origin: "http://petstore.swagger.io",
-              Sec-Fetch-Site: "cross-site",
-              Sec-Fetch-Mode: "cors",
-              Referer: "http://petstore.swagger.io/",
-              Accept-Language: "en-US,en;q=0.9"
-            }
-          }*/
-      );
-      return expect(response).to.have.status(200);
+        },
+      };
+
+      // Act
+      const response = await chakram.post(testUrl, user);
+
+      // Assert
+      expect(response).to.have.status(200);
+      expect(response.body.type).to.be.equal('unknown');
+      expect(response.body.message).to.match(/^\d*$/);
+      expect(response).to.have.schema(responseSchema);
+    });
+
+    it('Should create an Account given randomized yet valid data', async function() {
+      // Arrange
+      const user = {
+        'id': faker.random.number(),
+        'username': faker.internet.userName(),
+        'firstName': faker.name.firstName(),
+        'lastName': faker.name.lastName(),
+        'email': faker.internet.email(),
+        'password': faker.internet.password(),
+        'phone': faker.phone.phoneNumber(),
+        'userStatus': 0, // find out what this is all about
+      };
+      const responseSchema = {
+        type: 'object',
+        properties: {
+          body: {
+            type: 'object',
+            properties: {
+              code: {type: 'number'},
+              message: {type: 'string'},
+              type: {type: 'string'},
+            },
+          },
+        },
+      };
+
+      // Act
+      const response = await chakram.post(testUrl, user);
+
+      // Assert
+      expect(response).to.have.status(200);
+      expect(response.body.type).to.be.equal('unknown');
+      expect(response.body.message).to.match(/\d/);
+      expect(response).to.have.schema(responseSchema);
+
+      // TODO: Need to add Teardown and removal of new account
     });
   });
 });

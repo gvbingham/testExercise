@@ -1,4 +1,3 @@
-export {};
 const chakram = require('chakram');
 const expect = chakram.expect;
 
@@ -15,6 +14,6 @@ describe('TestPetStoreAuthenticate', function() {
     expect(request).to.have.responsetime(800);
     expect(request).to.have.header('content-type', 'application/json');
     expect(request.body.message).to.include('logged in user session:');
-    expect(request.body.message).to.match();
+    expect(request.body.message).to.match(/\d{13}/);
   });
 });
