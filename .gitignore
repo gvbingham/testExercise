@@ -1,3 +1,7 @@
+secrets.json
+secrets.js
+secret.json
+secret.js
 test/*.js
 docker-bench-security/
 # Logs
